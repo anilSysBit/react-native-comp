@@ -16,11 +16,15 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 // import { TouchableOpacity } from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import BottomSheet from "@/components/customs/BottomSheet";
+
 const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
+
+  const [showSheet, setShowSheet] = useState(false);
 
   return (
     <SafeAreaProvider>
@@ -42,7 +46,13 @@ const Profile = () => {
             size={25}
             color={"white"}
             style={styles.settingIcon}
+            onPress={()=>setShowSheet(true)}
           />
+
+<BottomSheet visible={showSheet} onClose={() => setShowSheet(false)}>
+        <Text style={styles.sheetText}>This is a custom bottom sheet</Text>
+        <Button title="Close" onPress={() => setShowSheet(false)} />
+      </BottomSheet>
           <Text />
           {/* Modal Popup */}
           <Modal
@@ -60,10 +70,10 @@ const Profile = () => {
               </View>
             </View>
           </Modal>
-          <Text style={{ color: "white", marginTop: 5, fontWeight: "bold" }}>
+          <Text style={{ color: "white", fontSize:20 }}>
             Anil Wagle
           </Text>
-          <Text style={{ color: "white", marginTop: 5 }}>
+          <Text style={{ color: "white", marginTop: 2 }}>
             anil.wagle808@gmail.com
           </Text>
         </View>
@@ -107,12 +117,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
-    padding: 12,
+    // padding: 12,
   },
   profileView: {
-    height: 180,
+    height: 170,
     // flex:1,
-    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#3bab57",
   },
@@ -144,6 +153,11 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 18,
     marginBottom: 20,
+  },
+  sheetText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 
