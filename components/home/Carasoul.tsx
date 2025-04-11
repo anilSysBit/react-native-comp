@@ -1,34 +1,53 @@
-import React from "react";
-import { StyleSheet,ScrollView, View, Text } from "react-native";
+import React from 'react';
+import { ScrollView, View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 
-export default function Carasoul() {
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const ITEM_SPACING = 10; // space between items
+const ITEM_WIDTH = SCREEN_WIDTH - ITEM_SPACING * 2; // width of each item (with padding)
+
+export default function CarouselWithGap() {
   return (
     <ScrollView
       horizontal
+      pagingEnabled
+      snapToInterval={ITEM_WIDTH + ITEM_SPACING}
+      decelerationRate="fast"
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.container}
+      scrollEventThrottle={16}
+      contentContainerStyle={styles.scrollContainer}
     >
-      <View style={styles.card}><Text>1</Text></View>
-      <View style={styles.card}><Text>2</Text></View>
-      <View style={styles.card}><Text>3</Text></View>
-      <View style={styles.card}><Text>4</Text></View>
-      <View style={styles.card}><Text>5</Text></View>
+      {[1, 2, 3, 4, 5].map((item, index) => (
+        <View key={index} style={styles.card}>
+          {/* <Text style={styles.text}>{item}</Text> */}
+          <Image
+  source={{ uri: `https://icms-image.slatic.net/images/ims-web/2fea5305-262c-4bb2-a462-eedf24edbafc.jpg` }}
+  style={{ width: '100%', height: 150, borderRadius: 12 }}
+  resizeMode="cover"
+/>
+
+        </View>
+      ))}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 16,
-        marginTop:10,
-      },
-      card: {
-        width: 300,
-        height: 150,
-        marginRight: 16,
-        backgroundColor: '#4CAF50',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 8,
-      },
+  scrollContainer: {
+    paddingHorizontal: ITEM_SPACING,
+    marginTop:10,
+  },
+  card: {
+    width: ITEM_WIDTH,
+    height: 150,
+    backgroundColor: '#ddd',
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: ITEM_SPACING,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
 });

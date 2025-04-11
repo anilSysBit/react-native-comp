@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, View } from 'react-native';
+import { Image, StyleSheet, Platform, View, Button,Text } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -8,6 +8,9 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Carasoul from '@/components/home/Carasoul';
 import MyInput from '@/components/home/SearchInput';
 import { Feather } from '@expo/vector-icons';
+import HorizontalScroll from '@/components/home/HorizontalSlide';
+import PopularCategories from '@/components/home/popcategories';
+import ProductList from '@/components/home/Product';
 
 export default function HomeScreen() {
   return (
@@ -21,6 +24,15 @@ export default function HomeScreen() {
         </View>
         <View style={styles.container}>
          <Carasoul/>
+         <PopularCategories/>
+         <ProductList/>
+         <View style={styles.advertise}>
+          <Image 
+            source={{uri:"https://tipsmake.com/data/images/collection-of-the-most-beautiful-fashion-banners-picture-32-8h2n0YQtr.jpg"}}
+            resizeMode='cover'
+            style={{height:'100%',width:'100%',borderRadius:8}}
+          />
+         </View>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -29,8 +41,14 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   safeArea:{
-    backgroundColor:'#3bab57'
+    backgroundColor:'orange'
   },
+  advertise:{
+    width:'auto',
+    height:180,
+    padding:10,
+  },
+
   topSearch:{
     flexDirection:'row',
     justifyContent:'space-between',
