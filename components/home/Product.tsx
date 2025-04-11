@@ -53,7 +53,7 @@ export default function PopularCategories() {
     <View style={{marginTop:10}}>
     <View style={styles.popularCategory}>
       <Text style={{fontSize:15,fontWeight:'bold'}}>Trending Products</Text>
-      <Text style={{color:'orange',fontWeight:'bold'}}>See more</Text>
+      <Text style={{color:'#8cb243',fontWeight:'bold'}}>See more</Text>
     </View>
     <HorizontalScroll>
       {productList.map((elem,index)=>{
@@ -65,7 +65,7 @@ export default function PopularCategories() {
                     resizeMode='cover'
                 />
                 <View style={styles.category}>
-                    <Text style={{fontSize:12,color:'orange'}}>{elem?.category}</Text>
+                    <Text style={{fontSize:12,color:'#8cb243'}}>{elem?.category}</Text>
                     <Text style={{fontSize:12,fontWeight:'bold',flexDirection:'row',gap:10}}><MaterialIcons name='star' size={10} color={'gold'}/>{elem?.rating}</Text>
                 </View>
                 <Text style={{fontWeight:'bold',paddingLeft:5,paddingRight:5,marginTop:2}}>{elem?.name}</Text>
@@ -85,11 +85,11 @@ export default function PopularCategories() {
 const styles = StyleSheet.create({
   card: {
     width: 120,
-    height: 160,
+    height: 150,
     marginRight: 16,
     // justifyContent: 'center',
     // alignItems: 'center',
-    // backgroundColor: '#f2ffeb',
+    backgroundColor: '#f1f1f1',
     overflow:'hidden',
     borderRadius: 10,
   },

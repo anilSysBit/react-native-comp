@@ -20,8 +20,8 @@ export default function CarouselWithGap() {
         <View key={index} style={styles.card}>
           {/* <Text style={styles.text}>{item}</Text> */}
           <Image
-  source={{ uri: `https://icms-image.slatic.net/images/ims-web/2fea5305-262c-4bb2-a462-eedf24edbafc.jpg` }}
-  style={{ width: '100%', height: 150, borderRadius: 12 }}
+  source={{ uri: `https://i.pinimg.com/originals/21/4c/03/214c035eaee40a3cb5209af31dd6c99e.jpg` }}
+  style={{ width: '100%', height: 180, borderRadius: 12 }}
   resizeMode="cover"
 />
 
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: ITEM_WIDTH,
-    height: 150,
+    height: 180,
     backgroundColor: '#ddd',
     borderRadius: 16,
     justifyContent: 'center',

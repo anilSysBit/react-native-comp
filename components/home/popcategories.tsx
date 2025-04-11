@@ -15,7 +15,7 @@ export default function PopularCategories() {
     <View>
     <View style={styles.popularCategory}>
       <Text style={{fontSize:15,fontWeight:'bold'}}>Popular Categories</Text>
-      <Text style={{color:'orange',fontWeight:'bold'}}>See more</Text>
+      <Text style={{color:'#8cb243',fontWeight:'bold'}}>See more</Text>
     </View>
     <HorizontalScroll>
       {popularCategories.map((elem,index)=>{
@@ -23,7 +23,7 @@ export default function PopularCategories() {
             <View style={styles.card} key={index}>
                 <Image
                     source={{uri:`https://picsum.photos/id/23${index}/300/200.jpg`}}
-                    style={{height:'80%',width:'100%',borderRadius:8,}}
+                    style={{height:'80%',width:'100%',borderRadius:8}}
                     resizeMode='cover'
                 />
                 <Text style={{marginTop:2}}>{elem?.header}</Text>
