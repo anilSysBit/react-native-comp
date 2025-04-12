@@ -23,10 +23,10 @@ export default function PopularCategories() {
             <View style={styles.card} key={index}>
                 <Image
                     source={{uri:`https://picsum.photos/id/23${index}/300/200.jpg`}}
-                    style={{height:'80%',width:'100%',borderRadius:8}}
+                    style={{height:'65%',width:'100%',borderRadius:8}}
                     resizeMode='cover'
                 />
-                <Text style={{marginTop:2}}>{elem?.header}</Text>
+                <Text style={{marginTop:2,fontSize:12}}>{elem?.header}</Text>
             </View>
         )
       })}
@@ -39,7 +39,7 @@ export default function PopularCategories() {
 const styles = StyleSheet.create({
   card: {
     width: 120,
-    height: 80,
+    height: 140,
     marginRight: 16,
     justifyContent: 'center',
     alignItems: 'center',

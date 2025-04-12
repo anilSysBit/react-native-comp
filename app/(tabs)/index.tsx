@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, View, Button,Text } from 'react-native';
+import { Image, StyleSheet, Platform,ScrollView, View,Dimensions, Button,Text } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -11,8 +11,12 @@ import { Feather } from '@expo/vector-icons';
 import HorizontalScroll from '@/components/home/HorizontalSlide';
 import PopularCategories from '@/components/home/popcategories';
 import ProductList from '@/components/home/Product';
+// import { ScrollView } from 'react-native-reanimated/lib/typescript/Animated';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 export default function HomeScreen() {
+  const tabBarHeight = useBottomTabBarHeight();
   return (
     <SafeAreaProvider >
       <SafeAreaView style={styles.safeArea}>
@@ -22,6 +26,8 @@ export default function HomeScreen() {
           <Feather name='shopping-cart' size={25} color="white"/>
           </View>
         </View>
+        <ScrollView>
+
         <View style={styles.container}>
          <Carasoul/>
          <PopularCategories/>
@@ -33,7 +39,10 @@ export default function HomeScreen() {
             style={{height:'100%',width:'100%',borderRadius:8}}
           />
          </View>
+         <ProductList/>
+
         </View>
+        </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -41,7 +50,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   safeArea:{
-    backgroundColor:'orange'
+    backgroundColor:'orange',
+    flex:1,
   },
   advertise:{
     width:'auto',
@@ -62,6 +72,10 @@ const styles = StyleSheet.create({
   },
   container:{
     backgroundColor:'white',
+    paddingBottom:10,
+    height:'auto',
+    // borderWidth:2,
+  
   },
   titleContainer: {
     flexDirection: 'row',

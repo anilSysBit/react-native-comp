@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet,Image } from 'react-native';
+import { View, Text, StyleSheet,Image,Dimensions } from 'react-native';
 import HorizontalScroll from './HorizontalSlide';
 import { MaterialIcons } from '@expo/vector-icons';
+
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function PopularCategories() {
     const productList = [
@@ -84,8 +87,8 @@ export default function PopularCategories() {
 
 const styles = StyleSheet.create({
   card: {
-    width: 120,
-    height: 150,
+    width: SCREEN_WIDTH / 2 - 40,
+    height: 200,
     marginRight: 16,
     // justifyContent: 'center',
     // alignItems: 'center',
