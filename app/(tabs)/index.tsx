@@ -29,7 +29,7 @@ export default function HomeScreen() {
         <ScrollView>
 
         <View style={styles.container}>
-         <Carasoul/>
+         <Carasoul autoLoop/>
          <PopularCategories/>
          <ProductList/>
          <View style={styles.advertise}>
