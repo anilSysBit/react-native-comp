@@ -7,7 +7,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Carasoul from '@/components/home/Carasoul';
 import MyInput from '@/components/home/SearchInput';
-import { Feather } from '@expo/vector-icons';
+import { Feather, MaterialIcons } from '@expo/vector-icons';
 import HorizontalScroll from '@/components/home/HorizontalSlide';
 import PopularCategories from '@/components/home/popcategories';
 import ProductList from '@/components/home/Product';
@@ -23,13 +23,13 @@ export default function HomeScreen() {
         <View style={styles.topSearch}>
         <MyInput/>
           <View style={styles.cartIcon}>
-          <Feather name='shopping-cart' size={25} color="white"/>
+          <MaterialIcons name='person' size={25} color="white"/>
           </View>
         </View>
         <ScrollView>
 
         <View style={styles.container}>
-         <Carasoul autoLoop/>
+         <Carasoul />
          <PopularCategories/>
          <ProductList/>
          <View style={styles.advertise}>
