@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform,ScrollView, View,Dimensions, Button,Text } from 'react-native';
+import { Image, StyleSheet, Platform,ScrollView, View,Dimensions, Button,Text, Pressable } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -24,7 +24,16 @@ export default function HomeScreen() {
         <View style={styles.topSearch}>
         <MyInput/>
           <View style={styles.cartIcon}>
-          <MaterialIcons name='person' size={25} color="white"/>
+            <Pressable
+             onPress={() => console.log('Pressed!')}
+             android_ripple={{ color: '#ddd' }}
+             style={({ pressed }) => [
+               styles.button,
+               pressed && Platform.OS === 'ios' && styles.pressed,
+             ]}
+            >
+         `      <MaterialIcons name='person' size={25} color="white"/>
+            </Pressable>
           </View>
         </View>
         <ScrollViewLayout tabHidingOnScrolling>
@@ -93,5 +102,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // backgroundColor: '#007AFF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  pressed: {
+    opacity: 0.6,
   },
 });
