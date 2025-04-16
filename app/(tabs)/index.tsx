@@ -11,6 +11,7 @@ import { Feather, MaterialIcons } from '@expo/vector-icons';
 import HorizontalScroll from '@/components/home/HorizontalSlide';
 import PopularCategories from '@/components/home/popcategories';
 import ProductList from '@/components/home/Product';
+import { useRouter } from 'expo-router';
 // import { ScrollView } from 'react-native-reanimated/lib/typescript/Animated';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
@@ -18,6 +19,7 @@ import ScrollViewLayout from '@/components/layouts/ScrollViewLayout';
 
 export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
+  const router  = useRouter();
   return (
     <SafeAreaProvider >
       <SafeAreaView style={styles.safeArea}>
@@ -25,7 +27,8 @@ export default function HomeScreen() {
         <MyInput/>
           <View style={styles.cartIcon}>
             <Pressable
-             onPress={() => console.log('Pressed!')}
+          
+             onPress={() => router.push("/auth/login")}
              android_ripple={{ color: '#ddd' }}
              style={({ pressed }) => [
                styles.button,

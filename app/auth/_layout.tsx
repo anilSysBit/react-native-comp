@@ -1,10 +1,11 @@
-import { useColorScheme, View } from "react-native";
+import { Stack } from 'expo-router';
 
-export default function AuthLayout(){
-    const colorScheme = useColorScheme();
-    return(
-        <View>
-            This is login Page
-        </View>
-    )
+export default function AuthLayout() {
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false, // or true if you want a top bar
+      }}
+    />
+  );
 }
