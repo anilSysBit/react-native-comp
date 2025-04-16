@@ -14,6 +14,7 @@ import ProductList from '@/components/home/Product';
 // import { ScrollView } from 'react-native-reanimated/lib/typescript/Animated';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import ScrollViewLayout from '@/components/layouts/ScrollViewLayout';
 
 export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -26,7 +27,7 @@ export default function HomeScreen() {
           <MaterialIcons name='person' size={25} color="white"/>
           </View>
         </View>
-        <ScrollView>
+        <ScrollViewLayout tabHidingOnScrolling>
 
         <View style={styles.container}>
          <Carasoul />
@@ -42,7 +43,7 @@ export default function HomeScreen() {
          <ProductList/>
 
         </View>
-        </ScrollView>
+        </ScrollViewLayout>
       </SafeAreaView>
     </SafeAreaProvider>
   );

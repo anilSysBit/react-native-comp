@@ -25,12 +25,24 @@ export default function TabLayout() {
 
   return (
     <Tabs
+    safeAreaInsets={{bottom:tabVisible ? undefined : -60}}
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarHideOnKeyboard:true,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
+        tabBarStyle: Platform.select({
+          ios: {
+            position: 'absolute',
+            
+            // transform: [{ translateY: tabBarTranslateY }], // Control tab bar position
+          },
+          default: {
+            
+            // transform: [{ translateY: tabBarTranslateY }], // Same for default platform
+          },
+        }),
         
       }}>
       <Tabs.Screen
