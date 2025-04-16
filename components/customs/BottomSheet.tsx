@@ -1,59 +1,160 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-  Modal,
-  View,
+  Animated,
+  BackHandler,
+  Dimensions,
+  PanResponder,
   StyleSheet,
   TouchableWithoutFeedback,
-  StyleProp,
-  ViewStyle,
+  View,
 } from 'react-native';
 
-interface BottomSheetProps {
-  visible: boolean;
+import { useTabVisibility } from '@/context/TabVisibilityContext';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+type BottomSheetProps = {
+  isVisible: boolean;
   onClose: () => void;
+  height?: number;
+  hideBackground?: boolean;
   children: React.ReactNode;
-  sheetStyle?: StyleProp<ViewStyle>;
-}
+};
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ visible, onClose, children, sheetStyle }) => {
+const BottomSheet: React.FC<BottomSheetProps> = ({
+  isVisible,
+  onClose,
+  height = 400,
+  hideBackground = true,
+  children,
+}) => {
+  const translateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
+  const backdropOpacity = useRef(new Animated.Value(0)).current;
+
+  const { setTabVisibility } = useTabVisibility();
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (isVisible) {
+        handleClose();
+        return true;
+      }
+      return false;
+    });
+
+    if (isVisible) {
+      setTabVisibility(false);
+      openSheet();
+    } else {
+      closeSheet();
+      setTabVisibility(true);
+    }
+
+    return () => backHandler.remove();
+  }, [isVisible]);
+
+  const openSheet = () => {
+    Animated.parallel([
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(backdropOpacity, {
+        toValue: 0.5,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const closeSheet = () => {
+    Animated.parallel([
+      Animated.timing(translateY, {
+        toValue: SCREEN_HEIGHT,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(backdropOpacity, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onClose();
+    });
+  };
+
+  const handleClose = () => {
+    closeSheet();
+  };
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gesture) => {
+        if (gesture.dy > 0) {
+          translateY.setValue(gesture.dy);
+        }
+      },
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dy > 100) {
+          handleClose();
+        } else {
+          Animated.spring(translateY, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    }),
+  ).current;
+
+  if (!isVisible) return null;
+
   return (
-    <Modal
-      transparent
-      animationType="slide"
-      visible={visible}
-      onRequestClose={onClose}
-    >
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.overlay} />
-      </TouchableWithoutFeedback>
+    <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+      {hideBackground && (
+        <TouchableWithoutFeedback onPress={handleClose}>
+          <Animated.View
+            style={[
+              styles.backdrop,
+              { opacity: backdropOpacity },
+            ]}
+          />
+        </TouchableWithoutFeedback>
+      )}
 
-      <View style={[styles.sheet, sheetStyle]}>
-        <View style={styles.handle} />
+      <Animated.View
+        style={[
+          styles.sheet,
+          {
+            height,
+            transform: [{ translateY }],
+          },
+        ]}
+        {...panResponder.panHandlers}
+      >
         {children}
-      </View>
-    </Modal>
+      </Animated.View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'black',
   },
   sheet: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20,
-    paddingBottom: 40,
-  },
-  handle: {
-    width: 50,
-    height: 5,
-    backgroundColor: '#ccc',
-    borderRadius: 3,
-    alignSelf: 'center',
-    marginBottom: 10,
+    padding: 16,
+    zIndex: 10,
   },
 });
 

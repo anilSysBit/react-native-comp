@@ -8,6 +8,7 @@ import 'react-native-reanimated';
 import { Text } from 'react-native';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { TabVisibilityProvider } from '@/context/TabVisibilityContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -30,12 +31,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <TabVisibilityProvider>
       <Stack>
         <Stack.Screen name="auth" options={{headerShown:false}} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
+      </TabVisibilityProvider>
     </ThemeProvider>
   );
 }

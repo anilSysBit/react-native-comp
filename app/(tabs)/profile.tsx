@@ -17,6 +17,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import BottomSheet from "@/components/customs/BottomSheet";
+import ScrollViewLayout from "@/components/layouts/ScrollViewLayout";
 
 const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,7 +26,7 @@ const Profile = () => {
   };
 
   const [showSheet, setShowSheet] = useState(false);
-
+  
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -48,11 +49,6 @@ const Profile = () => {
             style={styles.settingIcon}
             onPress={()=>setShowSheet(true)}
           />
-
-<BottomSheet visible={showSheet} onClose={() => setShowSheet(false)}>
-        <Text style={styles.sheetText}>This is a custom bottom sheet</Text>
-        <Button title="Close" onPress={() => setShowSheet(false)} />
-      </BottomSheet>
           <Text />
           {/* Modal Popup */}
           <Modal
@@ -77,11 +73,18 @@ const Profile = () => {
             anil.wagle808@gmail.com
           </Text>
         </View>
-        {/* <SafeAreaView style={styles.container} edges={['top']}> */}
 
-        <ScrollView style={styles.scrollView}>
+        <ScrollViewLayout tabHidingOnScrolling style={styles.scrollView}>
           <AccordionScreen />
-        </ScrollView>
+        
+        </ScrollViewLayout>
+        <BottomSheet
+        isVisible={showSheet}
+        onClose={() => setShowSheet(false)}
+        hideBackground={true}
+        height={400}>
+          <Text>Hello</Text>
+        </BottomSheet>
       </SafeAreaView>
     </SafeAreaProvider>
   );
